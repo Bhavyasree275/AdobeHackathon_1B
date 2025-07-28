@@ -1,0 +1,20 @@
+# Use a lightweight Python base image
+FROM python:3.9-slim
+
+# Set working directory inside container
+WORKDIR /app
+
+# Copy requirements and install Python dependencies
+COPY requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
+
+# Copy source code directory
+COPY src/ ./src/
+
+# Copy run.sh script and make it executable
+COPY run.sh .
+RUN chmod +x run.sh
+
+# Set the default command to run your script via run.sh
+ENTRYPOINT ["./run.sh"]
+
